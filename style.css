@@ -1,0 +1,161 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 100%; height: 100vh; overflow: hidden; background: #ffb6c1; font-family: 'Arial', sans-serif; }
+
+/* ARKA PLAN RESMİ */
+.heart-rose { 
+    position: absolute; 
+    width: 500px; /* Biraz küçülttük ki denge sağlansın */
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 30; 
+    opacity: 0.9; 
+    pointer-events: none; 
+}
+
+.letter-wrapper { 
+    position: absolute; 
+    top: 50%; /* Tam gülün merkezine otursun diye 50% yaptık */
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 50; 
+    perspective: 1000px; 
+}
+
+/* ZARF BOYUTU KÜÇÜLTÜLDÜ (Gülün içine sığması için) */
+.envelope { 
+    position: relative; 
+    width: 280px;  /* 350px -> 280px yapıldı */
+    height: 180px; /* 230px -> 180px yapıldı */
+    background: #f08080; 
+    border-radius: 0 0 10px 10px; 
+    cursor: pointer; 
+    transition: 0.5s; 
+    z-index: 50; 
+}
+
+.envelope-front { 
+    position: absolute; 
+    width: 100%; 
+    height: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 4; 
+    padding-top: 30px; 
+}
+
+.envelope-front p { 
+    font-family: 'Dancing Script', cursive; 
+    font-size: 22px; 
+    color: rgb(0, 0, 0); 
+}
+
+/* ZARF KAPAĞI (Yeni genişliğe göre ayarlandı) */
+.envelope-top { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 0; 
+    height: 0; 
+    border-left: 140px solid transparent; /* 280 / 2 */
+    border-right: 140px solid transparent; 
+    border-top: 100px solid #cd5c5c; 
+    z-index: 3; 
+    transform-origin: top; 
+    transition: 0.5s; 
+}
+
+/* KART */
+.card {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 270px;
+    height: 170px;
+    background: white;
+    z-index: 2;
+    transition: 0.5s;
+    padding: 15px;
+    text-align: center;
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+
+/* ÖZEL SCROLL BAR */
+.card::-webkit-scrollbar { width: 4px; }
+.card::-webkit-scrollbar-track { background: transparent; }
+.card::-webkit-scrollbar-thumb { background: #f08080; border-radius: 10px; }
+
+.text-full { font-family: 'Dancing Script', cursive; font-size: 17px; opacity: 0; transition: 0.5s; }
+
+.click-me { 
+    position: absolute; 
+    bottom: -50px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: white; 
+    padding: 6px 18px; 
+    border-radius: 25px; 
+    color: #cd5c5c; 
+    font-size: 14px;
+    animation: bounce 2s infinite; 
+}
+
+@media (max-width: 600px) {
+    
+    /* 1. Arka Plandaki Gül - Ekranı tam kaplasın ki zarf içine sığsın */
+    .heart-rose {
+        width: 100%; 
+        opacity: 0.95;
+    }
+
+    /* 2. Zarf Boyutları - İyice küçülttük */
+    .envelope {
+        width: 150px;  /* 180px -> 150px yapıldı */
+        height: 100px; /* 120px -> 100px yapıldı */
+        z-index: 70;
+    }
+
+    /* 3. Zarf Kapağı - Yeni genişliğe göre (150/2) */
+    .envelope-top {
+        border-left: 75px solid transparent; 
+        border-right: 75px solid transparent;
+        border-top: 55px solid #cd5c5c;
+    }
+
+    /* 4. İçindeki Kart - Zarfın içine sığacak boyutta */
+    .card {
+        width: 140px;
+        height: 90px;
+        padding: 8px;
+    }
+
+    /* 5. Yazılar - Küçük ekranda okunabilir ama minik puntolar */
+    .envelope-front p { 
+        font-size: 13px; 
+    }
+    
+    .text-full { 
+        font-size: 11px; /* Kart açılınca içindeki yazı boyutu */
+        line-height: 1.3;
+    }
+
+    /* 6. Mektup Açıldığında Kartın Yukarı Çıkış Mesafesi */
+    /* Küçük zarfta çok yukarı fırlatmamıza gerek yok */
+    .envelope.active .card {
+        transform: translateY(-60px); 
+    }
+
+    /* 7. Köşelerdeki 🎉 ikonları */
+    .party {
+        font-size: 22px;
+    }
+
+    /* 8. Buton (Eğer bu sayfada buton kullanıyorsan) */
+    .click-me {
+        bottom: -35px;
+        font-size: 11px;
+        padding: 4px 12px;
+    }
+}
